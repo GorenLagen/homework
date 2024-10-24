@@ -23,5 +23,15 @@ def get_post(post_id: int, Session: Session = fastapi.Depends(get_db)):
 
 @app.get('/users/{user_id}/feed', response_model=List[FeedGet])
 def get_user_feed(user_id: int, limit: int = 10, Session: Session = fastapi.Depends(get_db)):
-    res = Session.query(Feed).filter(Feed.user_id == id).order_by(Feed.time.desc()).limit(limit).all()
+    res = Session.query(Feed).filter(Feed.user_id == user_id).order_by(Feed.time.desc()).limit(limit).all()
     return res
+
+@app.get('/post/{post_id}/feed', response_model=List[FeedGet])
+def get_post_feed(post_id: int, limit: int = 10, Session: Session = fastapi.Depends(get_db)):
+    res = Session.query(Feed).filter(Feed.post_id == post_id).order_by(Feed.time.desc()).limit(limit).all()
+    return res
+
+@app.get('/post/recommend/{user_id}', response_model=List[GetPosts])
+def get_post_recommend(user_id: int, limit: int = 10, Session: Session = fastapi.Depends(get_db)):
+	res = Session.query(Post).limit(limit).all()
+	return res
