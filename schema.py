@@ -21,8 +21,6 @@ class GetPosts(BaseModel):
 	text: str
 	topic: str
 
-	feeds: Optional[FeedGet] = None
-
 	class Config:
 		orm_mode = True
 
