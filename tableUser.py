@@ -10,14 +10,11 @@ class Feed(Base):
     action = Column(String())
     time = Column(TIMESTAMP)
 
-    user = relationship("User", back_populates="feeds")
-    post = relationship("Post", back_populates="feeds")
-
 class User(Base):
     __tablename__ = "user"
     
     id = Column(Integer, primary_key=True)
-    feeds = relationship("Feed", back_populates="user")
+    feeds = relationship("Feed")
 
     gender = Column(Integer)
     age = Column(Integer)
@@ -31,7 +28,7 @@ class Post(Base):
     __tablename__ = 'post'
     
     id = Column(Integer, primary_key=True)
-    feeds = relationship("Feed", back_populates="post")
+    feeds = relationship("Feed")
 
     text = Column(String)
     topic = Column(String)
